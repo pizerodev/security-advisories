@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you cite an advisory from this repository, please cite it by identifier and URL."
+title: "Pizero Security Advisories"
+type: dataset
+authors:
+  - family-names: Cerreta
+    given-names: Michele
+    affiliation: "Pizero (Pizero Design srl)"
+repository-code: "https://github.com/pizerodev/security-advisories"
+url: "https://pizero.dev"
+license: CC-BY-4.0

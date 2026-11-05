@@ -1,0 +1,1 @@
+One file per advisory, named `PZSA-YYYY-NNN.md`, following [`TEMPLATE.md`](../TEMPLATE.md). Supplementary material goes in a directory with the same name. After adding or changing an advisory, run `python3 scripts/build-index.py` from the repository root to regenerate the index in `README.md`.
