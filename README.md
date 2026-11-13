@@ -5,7 +5,14 @@ Vulnerability advisories published by [Pizero](https://pizero.dev) (Pizero Desig
 ## Advisories
 
 <!-- advisories:start -->
-_No advisories published yet._
+| ID | Published | Product | Title | Severity | CVE |
+|---|---|---|---|---|---|
+| [PZSA-2026-001](advisories/PZSA-2026-001.md) | 2026-11-13 | typicms/core | typicms/core 16.0.5 to 17.0.45: exposure of every user's API token through the users and history API | High | pending |
+| [PZSA-2026-002](advisories/PZSA-2026-002.md) | 2026-11-13 | typicms/core | typicms/core 17.0.0 to 17.0.46: stored cross-site scripting in the JSON-LD block of public pages | Medium | pending |
+| [PZSA-2026-003](advisories/PZSA-2026-003.md) | 2026-11-13 | keystone (keystone-classic) | keystone (keystone-classic) 4.0.0 to 4.2.1: CSRF validation passes for sessions that hold no CSRF secret | Medium | pending |
+| [PZSA-2026-004](advisories/PZSA-2026-004.md) | 2026-11-13 | keystone (keystone-classic) | keystone (keystone-classic) 4.0.0 to 4.2.1: CSV export does not neutralise values starting with + (incomplete fix for CVE-2017-15879) | Medium | pending |
+| [PZSA-2026-005](advisories/PZSA-2026-005.md) | 2026-11-13 | keystone (keystone-classic) | keystone (keystone-classic) 4.0.0 to 4.2.1: Session API returns the raw user document, including the bcrypt password hash | Medium | pending |
+| [PZSA-2026-006](advisories/PZSA-2026-006.md) | 2026-11-13 | keystone (keystone-classic) | keystone (keystone-classic) 4.0.0 to 4.2.1: Cloudinary upload API accepts POSTs without a CSRF token | Low | none |
 <!-- advisories:end -->
 
 Findings under coordinated disclosure are listed only from their publication date.

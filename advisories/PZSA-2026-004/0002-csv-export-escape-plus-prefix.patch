@@ -1,0 +1,16 @@
+--- a/lib/security/escapeValueForExcel.js
++++ b/lib/security/escapeValueForExcel.js
+@@ -8,7 +8,12 @@
+ const formulaTriggers = ['+', '-', '=', '@'];
+ 
+ function escapeValueForExcel (value) {
+-	if (formulaTriggers.indexOf(value.toString().slice(0, 1)) > 0) {
++	if (value === undefined || value === null) {
++		return value;
++	}
++	// indexOf() returns 0 for '+', so the comparison must be >= 0 (previously > 0,
++	// which left '+' prefixed values unescaped).
++	if (formulaTriggers.indexOf(String(value).slice(0, 1)) >= 0) {
+ 		return ' ' + value;
+ 	}
+ 	return value;

@@ -1,0 +1,31 @@
+--- a/admin/server/api/session/get.js
++++ b/admin/server/api/session/get.js
+@@ -1,5 +1,16 @@
+ function get (req, res) {
+-	return res.json({ user: req.user });
++	var keystone = req.keystone;
++	var user = req.user;
++	if (!user) {
++		return res.json({ user: null });
++	}
++	// Serialise through List.getData() so field types control what is exposed
++	// (e.g. password fields become a boolean) instead of returning the raw
++	// mongoose document, which includes the password hash.
++	var UserList = keystone.list(keystone.get('user model'));
++	return res.json({
++		user: UserList ? UserList.getData(user) : { id: user.id },
++	});
+ }
+ 
+ module.exports = get;
+--- a/admin/server/api/session/signin.js
++++ b/admin/server/api/session/signin.js
+@@ -20,7 +20,7 @@
+ 						session.signinWithUser(user, req, res, function () {
+ 							keystone.callHook(user, 'post:signin', req, function (err) {
+ 								if (err) return res.status(500).json({ error: 'post:signin error', detail: err });
+-								res.json({ success: true, user: user });
++								res.json({ success: true, user: User.getData(user) });
+ 							});
+ 						});
+ 					} else if (err) {

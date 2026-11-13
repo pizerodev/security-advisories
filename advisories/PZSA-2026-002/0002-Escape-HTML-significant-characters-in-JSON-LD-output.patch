@@ -1,0 +1,23 @@
+From 4307a83b7a3916b0b5803b66bd168071d084bede Mon Sep 17 00:00:00 2001
+From: Michele Cerreta <michele@pizero.dev>
+Date: Sun, 25 Oct 2026 14:41:31 +0100
+Subject: [PATCH] Escape HTML-significant characters in JSON-LD output
+
+---
+ resources/views/public/components/json-ld.blade.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/resources/views/public/components/json-ld.blade.php b/resources/views/public/components/json-ld.blade.php
+index aa947ec3..11c54b49 100644
+--- a/resources/views/public/components/json-ld.blade.php
++++ b/resources/views/public/components/json-ld.blade.php
+@@ -1,5 +1,5 @@
+ @if ($schema)
+     <script type="application/ld+json">
+-        {!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
++        {!! json_encode($schema, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR) !!}
+     </script>
+ @endif
+-- 
+2.56.0
+

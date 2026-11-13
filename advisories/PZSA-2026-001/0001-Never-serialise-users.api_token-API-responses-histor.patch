@@ -1,0 +1,47 @@
+From 2874576f7e2cef96a0f450c60a35901596a51d45 Mon Sep 17 00:00:00 2001
+From: Michele Cerreta <michele@pizero.dev>
+Date: Sun, 25 Oct 2026 14:42:26 +0100
+Subject: [PATCH] Never serialise users.api_token (API responses, history
+ snapshots)
+
+---
+ src/Models/User.php       | 8 ++++++++
+ src/Traits/Historable.php | 3 +++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/src/Models/User.php b/src/Models/User.php
+index 38c82d40..73db20fc 100644
+--- a/src/Models/User.php
++++ b/src/Models/User.php
+@@ -76,6 +76,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
+     use InteractsWithPasskeys;
+     use Notifiable;
+ 
++    /**
++     * The API token is a bearer credential: it must never be serialised
++     * (API responses, history snapshots, logs).
++     *
++     * @var list<string>
++     */
++    protected $hidden = ['api_token'];
++
+     protected static function newFactory(): UserFactory
+     {
+         return UserFactory::new();
+diff --git a/src/Traits/Historable.php b/src/Traits/Historable.php
+index da5b4dba..6b5d632b 100644
+--- a/src/Traits/Historable.php
++++ b/src/Traits/Historable.php
+@@ -22,6 +22,9 @@ trait Historable
+             $new = [];
+             $old = [];
+             foreach ($model->attributes as $key => $value) {
++                if (in_array($key, $model->getHidden(), true)) {
++                    continue;
++                }
+                 if ($model->translatable && in_array($key, $model->translatable, true)) {
+                     $values = (array) json_decode($value);
+                     $originalValues = (array) json_decode((string) $model->original[$key]);
+-- 
+2.56.0
+

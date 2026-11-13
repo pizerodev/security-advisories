@@ -1,0 +1,18 @@
+--- a/admin/server/api/cloudinary.js
++++ b/admin/server/api/cloudinary.js
+@@ -6,7 +6,15 @@
+ 	upload: function (req, res) {
+ 		var cloudinary = require('cloudinary');
+ 		var keystone = req.keystone;
++		var csrf = keystone.security.csrf;
+ 
++		// Accept the token from the standard locations (header, body _csrf, query)
++		// or from authenticity_token, which the TinyMCE upload plugin may send
++		// (mirrors admin/server/api/s3.js).
++		if (!csrf.validate(req) && !csrf.validate(req, req.body && req.body.authenticity_token)) {
++			return res.status(403).send({ error: { message: 'invalid csrf' } });
++		}
++
+ 		if (req.files && req.files.file) {
+ 			var options = {};
+ 
